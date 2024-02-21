@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "903461278984",
+    "project_id": "students-copy",
+    "storage_bucket": "students-copy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903461278984:android:ffeb3a5de86911646cc8bd",
+        "android_client_info": {
+          "package_name": "com.example.studentscopy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQCcoi8OJlPbwoHZ1ZJY1QuAdSo8smvW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
