@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:studentscopy/pages/Home.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -9,10 +11,34 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   @override
   void dispose() {
     _emailController.dispose();
     super.dispose();
+  }
+
+  Future<void> _login() async {
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      print('User logged in: ${userCredential.user!.email}');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 
   @override
@@ -70,7 +96,7 @@ class _LoginState extends State<Login> {
                 width: 1,
               ),
             ),
-            child: const Row(
+            child: Row(
               children: [
                 SizedBox(
                   width: 10.0,
@@ -82,6 +108,7 @@ class _LoginState extends State<Login> {
                 SizedBox(width: 10.0),
                 Expanded(
                   child: TextField(
+                    controller: _emailController,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Email',
@@ -105,7 +132,7 @@ class _LoginState extends State<Login> {
                 width: 1,
               ),
             ),
-            child: const Row(
+            child: Row(
               children: [
                 SizedBox(
                   width: 10.0,
@@ -117,6 +144,7 @@ class _LoginState extends State<Login> {
                 SizedBox(width: 10.0),
                 Expanded(
                   child: TextField(
+                    controller: _passwordController,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Password',
@@ -150,7 +178,7 @@ class _LoginState extends State<Login> {
                         const Color.fromARGB(255, 28, 210, 34)),
                   ),
                   onPressed: () {
-                    print('Login');
+                    _login();
                   },
                   child: const Text(
                     'Login',
