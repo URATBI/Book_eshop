@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:studentscopy/Auth_pages/signup.dart';
 import 'package:studentscopy/pages/Home.dart';
 
 class Login extends StatefulWidget {
@@ -15,6 +16,7 @@ class _LoginState extends State<Login> {
   @override
   void dispose() {
     _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -70,6 +72,7 @@ class _LoginState extends State<Login> {
             width: 150.0,
             height: 35.0,
             color: const Color.fromARGB(255, 28, 210, 34),
+            
             child: const Center(
               child: Text(
                 "Login",
@@ -204,12 +207,30 @@ class _LoginState extends State<Login> {
         const SizedBox(
           height: 25.0,
         ),
-        const Center(
-          child: Text(
-            "If you are new ",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+        Center(
+          child: Container(
+            width: 250.0,
+            child: Row(
+              children: [
+                Text(
+                  "If you are new ",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Signup()),
+                      );
+                    },
+                    child: Text(
+                      "SignUp?",
+                      style: TextStyle(color: Colors.blue, fontSize: 16.0),
+                    ))
+              ],
             ),
           ),
         )
