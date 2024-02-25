@@ -46,195 +46,197 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: [
-        const SizedBox(
-          height: 100.0,
-        ),
-        const SizedBox(
-          width: double.infinity,
-          child: Text(
-            "WELCOME YOU!!",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w500,
-              decorationStyle: TextDecorationStyle.dashed,
-              decorationThickness: 5.0,
+        body: SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 100.0,
+          ),
+          const SizedBox(
+            width: double.infinity,
+            child: Text(
+              "WELCOME YOU!!",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w500,
+                decorationStyle: TextDecorationStyle.dashed,
+                decorationThickness: 5.0,
+              ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: 30.0,
-        ),
-        Center(
-          child: Container(
-            width: 150.0,
+          const SizedBox(
+            height: 30.0,
+          ),
+          Center(
+            child: Container(
+              width: 150.0,
+              height: 35.0,
+              color: const Color.fromARGB(255, 28, 210, 34),
+              child: const Center(
+                child: Text(
+                  "Login",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 40.0,
+          ),
+          Center(
+            child: Container(
+              width: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: Colors.black,
+                  width: 1,
+                ),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  Icon(
+                    Icons.email_outlined,
+                    size: 25.0,
+                  ),
+                  SizedBox(width: 10.0),
+                  Expanded(
+                    child: TextField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Email',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
             height: 35.0,
-            color: const Color.fromARGB(255, 28, 210, 34),
-            
-            child: const Center(
-              child: Text(
-                "Login",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
           ),
-        ),
-        const SizedBox(
-          height: 40.0,
-        ),
-        Center(
-          child: Container(
-            width: 300,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Colors.black,
-                width: 1,
+          Center(
+            child: Container(
+              width: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: Colors.black,
+                  width: 1,
+                ),
               ),
-            ),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 10.0,
-                ),
-                Icon(
-                  Icons.email_outlined,
-                  size: 25.0,
-                ),
-                SizedBox(width: 10.0),
-                Expanded(
-                  child: TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Email',
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  Icon(
+                    Icons.lock_outline,
+                    size: 25.0,
+                  ),
+                  SizedBox(width: 10.0),
+                  Expanded(
+                    child: TextField(
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Password',
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 35.0,
-        ),
-        Center(
-          child: Container(
-            width: 300,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Colors.black,
-                width: 1,
+                ],
               ),
             ),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 10.0,
-                ),
-                Icon(
-                  Icons.lock_outline,
-                  size: 25.0,
-                ),
-                SizedBox(width: 10.0),
-                Expanded(
-                  child: TextField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Password',
+          ),
+          SizedBox(
+            height: 30.0,
+          ),
+          Center(
+            widthFactor: 200.0,
+            child: Container(
+              width: 300.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Forget Password?",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 30.0,
-        ),
-        Center(
-          widthFactor: 200.0,
-          child: Container(
-            width: 300.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Forget Password?",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color.fromARGB(255, 28, 210, 34)),
-                  ),
-                  onPressed: () {
-                    _login();
-                  },
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 25.0,
-        ),
-        const Center(
-          child: Text(
-            "or",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 25.0,
-        ),
-        Center(
-          child: Container(
-            width: 250.0,
-            child: Row(
-              children: [
-                Text(
-                  "If you are new ",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                TextButton(
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color.fromARGB(255, 28, 210, 34)),
+                    ),
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => Signup()),
-                      );
+                      _login();
                     },
-                    child: Text(
-                      "SignUp?",
-                      style: TextStyle(color: Colors.blue, fontSize: 16.0),
-                    ))
-              ],
+                    child: const Text(
+                      'Login',
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        )
-      ],
+          const SizedBox(
+            height: 25.0,
+          ),
+          const Center(
+            child: Text(
+              "or",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 25.0,
+          ),
+          Center(
+            child: Container(
+              width: 250.0,
+              child: Row(
+                children: [
+                  Text(
+                    "If you are new ",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => Signup()),
+                        );
+                      },
+                      child: Text(
+                        "SignUp?",
+                        style: TextStyle(color: Colors.blue, fontSize: 16.0),
+                      ))
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     ));
   }
 }
