@@ -50,29 +50,30 @@ class _LoginState extends State<Login> {
       child: Column(
         children: [
           const SizedBox(
-            height: 100.0,
+            height: 110.0,
           ),
-          const SizedBox(
-            width: double.infinity,
-            child: Text(
-              "WELCOME YOU!!",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w500,
-                decorationStyle: TextDecorationStyle.dashed,
-                decorationThickness: 5.0,
+          Center(
+            child: Container(
+              width: 230,
+              height: 230,
+              child: Image(
+                image: AssetImage('assets/logo.png'),
+                fit: BoxFit.cover,
               ),
             ),
-          ),
-          const SizedBox(
-            height: 30.0,
           ),
           Center(
             child: Container(
               width: 150.0,
-              height: 35.0,
-              color: const Color.fromARGB(255, 28, 210, 34),
+              height: 40.0,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 28, 210, 34),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: Colors.white,
+                  width: 2,
+                ),
+              ),
               child: const Center(
                 child: Text(
                   "Login",
@@ -87,7 +88,7 @@ class _LoginState extends State<Login> {
             ),
           ),
           const SizedBox(
-            height: 40.0,
+            height: 30.0,
           ),
           Center(
             child: Container(
@@ -212,6 +213,7 @@ class _LoginState extends State<Login> {
             child: Container(
               width: 250.0,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "If you are new ",

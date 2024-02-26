@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:studentscopy/Auth_pages/login.dart';
 
+import '../pages/Home.dart';
 import '../user_data/data.dart';
 
 class Signup extends StatefulWidget {
@@ -43,7 +44,7 @@ class _SignupState extends State<Signup> {
       await _storeUserData(user!.uid);
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Login()),
+        MaterialPageRoute(builder: (context) => Home()),
       );
     } catch (e) {
       print("Error during signup: $e");
@@ -77,13 +78,30 @@ class _SignupState extends State<Signup> {
       child: Column(
         children: [
           const SizedBox(
-            height: 100.0,
+            height: 60.0,
+          ),
+          Center(
+            child: Container(
+              width: 180,
+              height: 180,
+              child: Image(
+                image: AssetImage('assets/logo.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           Center(
             child: Container(
               width: 150.0,
-              height: 35.0,
-              color: const Color.fromARGB(255, 28, 210, 34),
+              height: 40.0,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 28, 210, 34),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: Colors.white,
+                  width: 2,
+                ),
+              ),
               child: const Center(
                 child: Text(
                   "Sign-Up",
@@ -287,11 +305,21 @@ class _SignupState extends State<Signup> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "Forget Password?",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color.fromARGB(255, 28, 210, 34)),
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Login()),
+                      );
+                    },
+                    child: const Text(
+                      'Back',
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     ),
                   ),
                   ElevatedButton(
