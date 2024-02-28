@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:studentscopy/Auth_pages/signup.dart';
 import 'package:studentscopy/pages/Home.dart';
 
+import '../reset_pass/resetpassword.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -169,11 +171,21 @@ class _LoginState extends State<Login> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "Forget Password?",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => resetpassword()),
+                      );
+                    },
+                    child: const Text(
+                      "Forget Password?",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   ElevatedButton(
