@@ -101,15 +101,51 @@ class _HomeState extends State<Home> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 28, 210, 34),
-              ),
-              child: Text(
-                userData != null ? userData['name'] ?? '' : '',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
+            Container(
+              height: 250,
+              child: DrawerHeader(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 28, 210, 34),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          width: 2,
+                        ),
+                        shape: BoxShape.circle,
+                      ),
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundImage: userData != null &&
+                                userData.containsKey('profileImageUrl')
+                            ? NetworkImage(userData['profileImageUrl'])
+                            : AssetImage('assets/preimage.jpeg')
+                                as ImageProvider,
+                      ),
+                    ),
+                    SizedBox(height: 3),
+                    Text(
+                      userData != null ? userData['name'] ?? '' : '',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 2,
+                    ),
+                    Text(
+                      userData != null ? userData['email'] ?? '' : '',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
