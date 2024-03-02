@@ -66,8 +66,28 @@ class _SignupState extends State<Signup> {
           .doc(userId)
           .set(userData.toJson());
       print('User data stored successfully');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('User data Signup successfully'),
+          duration: Duration(seconds: 3),
+          action: SnackBarAction(
+            label: 'Close',
+            onPressed: () {},
+          ),
+        ),
+      );
     } catch (e) {
       print('Error storing user data: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('User data did not Signup '),
+          duration: Duration(seconds: 3),
+          action: SnackBarAction(
+            label: 'Close',
+            onPressed: () {},
+          ),
+        ),
+      );
     }
   }
 

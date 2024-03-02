@@ -98,6 +98,9 @@ class _editprofileState extends State<editprofile> {
             .update({
           'age': _ageController.text.trim(),
           'year': _selectedyear,
+          'name': _nameController.text.trim(),
+          'department': _departmentController.text.trim(),
+          'rollNumber': _rollController.text.trim(),
           'number': _numberController.text.trim(),
           'semester': _selectedsem
         });
