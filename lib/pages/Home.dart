@@ -154,8 +154,7 @@ class _HomeState extends State<Home> {
               onTap: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => myprofile(userData: userData)),
+                  MaterialPageRoute(builder: (context) => myprofile()),
                 );
               },
             ),
