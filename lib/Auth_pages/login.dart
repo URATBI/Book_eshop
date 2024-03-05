@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:studentscopy/Auth_pages/signup.dart';
 import 'package:studentscopy/pages/Home.dart';
-
 import '../reset_pass/resetpassword.dart';
 
 class Login extends StatefulWidget {

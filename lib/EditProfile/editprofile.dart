@@ -216,450 +216,460 @@ class _editprofileState extends State<editprofile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: userData != null
-            ? SingleChildScrollView(
-                child: Column(
-                children: [
-                  SizedBox(
-                    height: 50.0,
-                  ),
-                  Center(
-                    child: Container(
-                      width: 150.0,
-                      height: 35.0,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 28, 210, 34),
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 2,
-                        ),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Edit Profile",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+          body: userData != null
+              ? SingleChildScrollView(
+                  child: Column(
+                  children: [
+                    SizedBox(
+                      height: 50.0,
                     ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
+                    Center(
+                      child: Container(
+                        width: 150.0,
+                        height: 35.0,
+                        decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 28, 210, 34),
-                          width: 3,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2,
+                          ),
                         ),
-                        shape: BoxShape.circle,
-                      ),
-                      child: CircleAvatar(
-                        radius: 70,
-                        backgroundImage: userData != null &&
-                                userData.containsKey('profileImageUrl')
-                            ? NetworkImage(userData['profileImageUrl'])
-                            : AssetImage('assets/preimage.jpeg')
-                                as ImageProvider,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Center(
-                    child: SizedBox(
-                      height: 20.0,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color.fromARGB(255, 28, 210, 34)),
-                        ),
-                        onPressed: () {
-                          getImage();
-                        },
-                        child: const Text(
-                          'Edit photo',
-                          style: TextStyle(
-                              fontSize: 10,
-                              color: Color.fromARGB(255, 255, 255, 255)),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 17),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Student Name",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17.0),
-                            ),
-                            Container(
-                              width: 230,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    child: TextField(
-                                      controller: _nameController,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'Name',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Reg NO",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17.0),
-                            ),
-                            Container(
-                              width: 230,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    child: TextField(
-                                      controller: _rollController,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'rollNumber',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Student Age",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17.0),
-                            ),
-                            Container(
-                              width: 230,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    child: TextField(
-                                      controller: _ageController,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'Age',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Department",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17.0),
-                            ),
-                            Container(
-                              width: 230,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    child: TextField(
-                                      controller: _departmentController,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'department',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 150,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Year",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 17.0),
-                                  ),
-                                  Container(
-                                    width: 70,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                        color: Colors.black,
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        SizedBox(width: 10.0),
-                                        Expanded(
-                                          child: DropdownButtonFormField(
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                            ),
-                                            value: _selectedyear,
-                                            items: _dropdownItemsyear
-                                                .map((String item) {
-                                              return DropdownMenuItem<String>(
-                                                value: item,
-                                                child: Text(item),
-                                              );
-                                            }).toList(),
-                                            onChanged: (String? newValue) {
-                                              setState(() {
-                                                int index = _dropdownItemsyear
-                                                    .indexOf(newValue!);
-                                                _selectedyear =
-                                                    _dropdownItemsyear[index];
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 150,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Sem",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 17.0),
-                                  ),
-                                  Container(
-                                    width: 70,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                        color: Colors.black,
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        SizedBox(width: 10.0),
-                                        Expanded(
-                                          child: DropdownButtonFormField(
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                            ),
-                                            value: _selectedsem,
-                                            items: _dropdownItemsSem
-                                                .map((String item) {
-                                              return DropdownMenuItem<String>(
-                                                value: item,
-                                                child: Text(item),
-                                              );
-                                            }).toList(),
-                                            onChanged: (String? newValue) {
-                                              setState(() {
-                                                int index = _dropdownItemsSem
-                                                    .indexOf(newValue!);
-                                                _selectedsem =
-                                                    _dropdownItemsSem[index];
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Moblie No",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17.0),
-                            ),
-                            Container(
-                              width: 230,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    child: TextField(
-                                      controller: _numberController,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: 'Moblie Number',
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  Center(
-                    widthFactor: 200.0,
-                    child: Container(
-                      width: 300.0,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  const Color.fromARGB(255, 28, 210, 34)),
-                            ),
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => myprofile()),
-                              );
-                            },
-                            child: const Text(
-                              'Back',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 255, 255, 255)),
+                        child: const Center(
+                          child: Text(
+                            "Edit Profile",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  const Color.fromARGB(255, 28, 210, 34)),
-                            ),
-                            onPressed: () {
-                              save();
-                            },
-                            child: const Text(
-                              'Save',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 255, 255, 255)),
-                            ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: const Color.fromARGB(255, 28, 210, 34),
+                            width: 3,
+                          ),
+                          shape: BoxShape.circle,
+                        ),
+                        child: CircleAvatar(
+                          radius: 70,
+                          backgroundImage: userData != null &&
+                                  userData.containsKey('profileImageUrl')
+                              ? NetworkImage(userData['profileImageUrl'])
+                              : AssetImage('assets/preimage.jpeg')
+                                  as ImageProvider,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Center(
+                      child: SizedBox(
+                        height: 20.0,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                const Color.fromARGB(255, 28, 210, 34)),
+                          ),
+                          onPressed: () {
+                            getImage();
+                          },
+                          child: const Text(
+                            'Edit photo',
+                            style: TextStyle(
+                                fontSize: 10,
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 17),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Student Name",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17.0),
+                              ),
+                              Container(
+                                width: 230,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: TextField(
+                                        controller: _nameController,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: 'Name',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Reg NO",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17.0),
+                              ),
+                              Container(
+                                width: 230,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: TextField(
+                                        controller: _rollController,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: 'rollNumber',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Student Age",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17.0),
+                              ),
+                              Container(
+                                width: 230,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: TextField(
+                                        controller: _ageController,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: 'Age',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Department",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17.0),
+                              ),
+                              Container(
+                                width: 230,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: TextField(
+                                        controller: _departmentController,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: 'department',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 150,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Year",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17.0),
+                                    ),
+                                    Container(
+                                      width: 70,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                          color: Colors.black,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          SizedBox(width: 10.0),
+                                          Expanded(
+                                            child: DropdownButtonFormField(
+                                              decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                              ),
+                                              value: _selectedyear,
+                                              items: _dropdownItemsyear
+                                                  .map((String item) {
+                                                return DropdownMenuItem<String>(
+                                                  value: item,
+                                                  child: Text(item),
+                                                );
+                                              }).toList(),
+                                              onChanged: (String? newValue) {
+                                                setState(() {
+                                                  int index = _dropdownItemsyear
+                                                      .indexOf(newValue!);
+                                                  _selectedyear =
+                                                      _dropdownItemsyear[index];
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: 150,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Sem",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17.0),
+                                    ),
+                                    Container(
+                                      width: 70,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                          color: Colors.black,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          SizedBox(width: 10.0),
+                                          Expanded(
+                                            child: DropdownButtonFormField(
+                                              decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                              ),
+                                              value: _selectedsem,
+                                              items: _dropdownItemsSem
+                                                  .map((String item) {
+                                                return DropdownMenuItem<String>(
+                                                  value: item,
+                                                  child: Text(item),
+                                                );
+                                              }).toList(),
+                                              onChanged: (String? newValue) {
+                                                setState(() {
+                                                  int index = _dropdownItemsSem
+                                                      .indexOf(newValue!);
+                                                  _selectedsem =
+                                                      _dropdownItemsSem[index];
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Moblie No",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17.0),
+                              ),
+                              Container(
+                                width: 230,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: TextField(
+                                        controller: _numberController,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: 'Moblie Number',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
-              ))
-            : Center(
-                child: CircularProgressIndicator(),
-              ));
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Center(
+                      widthFactor: 200.0,
+                      child: Container(
+                        width: 300.0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        const Color.fromARGB(255, 28, 210, 34)),
+                              ),
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => myprofile()),
+                                );
+                              },
+                              child: const Text(
+                                'Back',
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 255, 255, 255)),
+                              ),
+                            ),
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        const Color.fromARGB(255, 28, 210, 34)),
+                              ),
+                              onPressed: () {
+                                save();
+                              },
+                              child: const Text(
+                                'Save',
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 255, 255, 255)),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ))
+              : Center(
+                  child: CircularProgressIndicator(),
+                )),
+    );
   }
 }
