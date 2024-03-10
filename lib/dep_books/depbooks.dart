@@ -47,7 +47,7 @@ class _DepbooksState extends State<Depbooks> {
               _buildDepartmentBooks('CSE'),
               _buildDepartmentBooks('ECE'),
               _buildDepartmentBooks('MECH'),
-              _buildDepartmentBooks('AIDS'),
+              _buildDepartmentBooks('AI'),
             ],
           ),
         ),

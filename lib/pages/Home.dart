@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:studentscopy/Auth_pages/login.dart';
 import 'package:studentscopy/dep_books/depbooks.dart';
 import 'package:studentscopy/pages/bookview.dart';
 
+import '../search_books/Searchbooks.dart';
 import './myprofile.dart';
 
 class Home extends StatefulWidget {
@@ -14,7 +16,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   FirebaseAuth _auth = FirebaseAuth.instance;
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   late User? _user;
   var userData;
@@ -87,6 +91,17 @@ class _HomeState extends State<Home> {
           style: TextStyle(fontSize: 20.0),
         ),
         actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Searchbooks()),
+                );
+              },
+              icon: Icon(Icons.search_outlined)),
+          SizedBox(
+            width: 6.0,
+          ),
           Container(
             width: 40,
             height: 40,
