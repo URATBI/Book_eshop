@@ -285,7 +285,8 @@ class _myprofileState extends State<myprofile> {
               ),
             )
           : Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                  color: Color.fromARGB(255, 28, 210, 34)),
             ),
     );
   }

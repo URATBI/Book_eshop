@@ -250,7 +250,8 @@ class _HomeState extends State<Home> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                          color: Color.fromARGB(255, 28, 210, 34)),
                     );
                   } else if (snapshot.hasError) {
                     return Center(
@@ -324,7 +325,8 @@ class _HomeState extends State<Home> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                          color: Color.fromARGB(255, 28, 210, 34)),
                     );
                   } else if (snapshot.hasError) {
                     return Center(
@@ -395,7 +397,8 @@ class _HomeState extends State<Home> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                          color: Color.fromARGB(255, 28, 210, 34)),
                     );
                   } else if (snapshot.hasError) {
                     return Center(

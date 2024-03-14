@@ -668,7 +668,8 @@ class _editprofileState extends State<editprofile> {
                   ],
                 ))
               : Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                      color: Color.fromARGB(255, 28, 210, 34)),
                 )),
     );
   }

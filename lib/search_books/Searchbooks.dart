@@ -86,7 +86,7 @@ class _SearchbooksState extends State<Searchbooks> {
             var bookData = booksearchresult[index].data();
             return GestureDetector(
               onTap: () {
-                String documentId = bookresult[index].id;
+                String documentId = booksearchresult[index].id;
                 Navigator.push(
                   context,
                   MaterialPageRoute(
