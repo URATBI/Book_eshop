@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:studentscopy/dep_books/depbooks.dart';
 
@@ -12,6 +13,7 @@ class Bookview extends StatefulWidget {
 }
 
 class _BookviewState extends State<Bookview> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
   var bookData;
   num price = 0;
   var bookcount = 1;
@@ -50,6 +52,32 @@ class _BookviewState extends State<Bookview> {
     });
   }
 
+  Future<void> _addToCart() async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        await FirebaseFirestore.instance
+            .collection('user_profiles')
+            .doc(user.uid)
+            .update({
+          'fav_book': FieldValue.arrayUnion(['${widget.bookid}'])
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Added to cart'),
+            duration: Duration(seconds: 3),
+            action: SnackBarAction(
+              label: 'Close',
+              onPressed: () {},
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      print('Error adding book to favorites: $e');
+    }
+  }
+
   void removecountbook() {
     if (bookcount > 1) {
       setState(() {
@@ -74,6 +102,9 @@ class _BookviewState extends State<Bookview> {
                   child: FractionallySizedBox(
                     widthFactor: 0.5,
                     child: GestureDetector(
+                      onTap: () {
+                        _addToCart();
+                      },
                       child: Container(
                         height: 60.0,
                         child: Center(

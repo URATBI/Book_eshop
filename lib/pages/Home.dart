@@ -6,6 +6,7 @@ import 'package:studentscopy/Auth_pages/login.dart';
 import 'package:studentscopy/dep_books/depbooks.dart';
 import 'package:studentscopy/pages/bookview.dart';
 
+import '../addtocard/Addtocrad.dart';
 import '../search_books/Searchbooks.dart';
 import './myprofile.dart';
 
@@ -170,9 +171,18 @@ class _HomeState extends State<Home> {
             ListTile(
               title: Text("My Profile"),
               onTap: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => myprofile()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Fav Books'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Addtocard()),
                 );
               },
             ),
