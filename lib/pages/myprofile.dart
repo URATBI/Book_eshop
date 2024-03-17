@@ -246,7 +246,8 @@ class _myprofileState extends State<myprofile> {
                         ...userData!.entries
                             .where((entry) =>
                                 entry.key != 'profileImageUrl' &&
-                                entry.key != 'email')
+                                entry.key != 'email' &&
+                                entry.key != 'fav_book')
                             .map((entry) {
                           final key =
                               '${entry.key[0].toUpperCase()}${entry.key.substring(1)}';
