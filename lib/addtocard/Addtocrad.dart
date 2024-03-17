@@ -84,37 +84,33 @@ class _AddToCardState extends State<AddToCard> {
               children: [
                 Expanded(
                   child: Container(
-                    child: FractionallySizedBox(
-                      widthFactor: 0.5,
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                            height: 60.0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  size: 27,
-                                  Icons.currency_rupee_outlined,
-                                  color: Color.fromARGB(255, 39, 116, 20),
-                                ),
-                                Text(
-                                  '${totalbookprice}',
-                                  style: TextStyle(fontSize: 23),
-                                ),
-                                Container(
-                                  width: 20,
-                                  height: 20,
-                                  child: Icon(
-                                    size: 15,
-                                    Icons.info_outlined,
-                                    color: const Color.fromARGB(
-                                        255, 101, 101, 101),
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ),
+                    height: 60,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.currency_rupee,
+                          color: Color.fromARGB(255, 45, 86, 7),
+                        ),
+                        GestureDetector(
+                          child: Container(
+                            height: 40,
+                            child: Center(
+                              child: Text(
+                                "${totalbookprice}",
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 63, 63, 63),
+                                    fontSize: 20),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          Icons.info_outline,
+                          size: 16,
+                          color: Color.fromARGB(255, 104, 104, 104),
+                        )
+                      ],
                     ),
                   ),
                 ),
@@ -311,7 +307,7 @@ class _AddToCardState extends State<AddToCard> {
                                       GestureDetector(
                                         onTap: () {
                                           setState(() {
-                                            if (quantities[documentId]! > 0) {
+                                            if (quantities[documentId]! > 1) {
                                               quantities[documentId] =
                                                   quantities[documentId]! - 1;
 
@@ -387,7 +383,9 @@ class _AddToCardState extends State<AddToCard> {
                                   child: Row(
                                     children: [
                                       Container(
-                                        width: 120,
+                                        constraints: BoxConstraints(
+                                          minWidth: 120,
+                                        ),
                                         height: 35.0,
                                         padding: EdgeInsets.all(5),
                                         decoration: BoxDecoration(
