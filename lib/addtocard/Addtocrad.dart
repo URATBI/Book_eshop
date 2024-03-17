@@ -27,14 +27,55 @@ class AddToCard extends StatefulWidget {
 }
 
 class _AddToCardState extends State<AddToCard> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late User? _user;
+  late Map<String, int> quantities;
+  late Map<String, double> prices;
+  double totalPrice = 0;
+  double totalbookprice = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    quantities = {};
+    prices = {};
+
+    _updateTotalPrice();
+  }
+
+  void _updateTotalPrice() async {
+    GetData().getUserDataStream().listen((snapshot) {
+      if (snapshot.exists) {
+        var userData = snapshot.data();
+        var favoriteBooks = userData!['fav_book'] as List<dynamic>;
+        totalPrice = 0;
+        for (var bookId in favoriteBooks) {
+          FirebaseFirestore.instance
+              .collection('books')
+              .doc(bookId.toString())
+              .get()
+              .then((snapshot) {
+            if (snapshot.exists) {
+              var bookData = snapshot.data() as Map<String, dynamic>;
+              prices[bookId.toString()] = (bookData['price'] as num).toDouble();
+              totalPrice +=
+                  prices[bookId.toString()]! * quantities[bookId.toString()]!;
+            }
+
+            setState(() {
+              totalbookprice = totalPrice;
+            });
+          });
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("Cards"),
-        ),
         bottomNavigationBar: BottomAppBar(
           padding: EdgeInsets.all(0),
           child: Container(
@@ -58,7 +99,7 @@ class _AddToCardState extends State<AddToCard> {
                                   color: Color.fromARGB(255, 39, 116, 20),
                                 ),
                                 Text(
-                                  '400',
+                                  '${totalbookprice}',
                                   style: TextStyle(fontSize: 23),
                                 ),
                                 Container(
@@ -110,6 +151,9 @@ class _AddToCardState extends State<AddToCard> {
           ),
           height: 60,
         ),
+        appBar: AppBar(
+          title: Text("Cards"),
+        ),
         body: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
           stream: GetData().getUserDataStream(),
           builder: (context, snapshot) {
@@ -144,6 +188,13 @@ class _AddToCardState extends State<AddToCard> {
   }
 
   Widget buildBookCard(String documentId) {
+    if (!quantities.containsKey(documentId)) {
+      quantities[documentId] = 1;
+    }
+    if (!prices.containsKey(documentId)) {
+      prices[documentId] = 1.0;
+    }
+
     return GestureDetector(
       onTap: () {},
       child: StreamBuilder<DocumentSnapshot>(
@@ -164,44 +215,38 @@ class _AddToCardState extends State<AddToCard> {
             var bookData = snapshot.data?.data() as Map<String, dynamic>?;
 
             if (bookData != null) {
-              int quantity = 0;
+              prices[documentId] = quantities[documentId]! *
+                  (bookData['price'] as num).toDouble();
+
               return Center(
                 child: FractionallySizedBox(
                   widthFactor: 0.95,
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 20.0,
-                      ),
+                      SizedBox(height: 20),
                       Container(
                         decoration: BoxDecoration(
-                            border: Border.all(
-                              color: const Color.fromARGB(255, 141, 141, 141),
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(3)),
-                        //padding: EdgeInsets.symmetric(horizontal: 10),
+                          border: Border.all(
+                            color: const Color.fromARGB(255, 141, 141, 141),
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(3),
+                        ),
                         child: Column(
                           children: [
-                            SizedBox(
-                              height: 10,
-                            ),
+                            SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(
-                                  width: 5,
-                                ),
+                                SizedBox(width: 5),
                                 Container(
                                   width: 120,
                                   height: 170,
                                   child:
                                       Image.network('${bookData['bookpic']}'),
                                 ),
-                                SizedBox(
-                                  width: 3,
-                                ),
+                                SizedBox(width: 3),
                                 Container(
                                   height: 170,
                                   child: Column(
@@ -211,45 +256,43 @@ class _AddToCardState extends State<AddToCard> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                          width: 200,
-                                          child: Text(
-                                            '${bookData['bookname']}',
-                                            style: TextStyle(
-                                                color: const Color.fromARGB(
-                                                    255, 85, 85, 85),
-                                                fontSize: 18),
-                                          )),
+                                        width: 200,
+                                        child: Text(
+                                          '${bookData['bookname']}',
+                                          style: TextStyle(
+                                            color: const Color.fromARGB(
+                                                255, 85, 85, 85),
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
                                       Text(
                                         '${bookData['department'].join(' ')}',
                                         style: TextStyle(
-                                            color: const Color.fromARGB(
-                                                255, 85, 85, 85),
-                                            fontSize: 15),
+                                          color: const Color.fromARGB(
+                                              255, 85, 85, 85),
+                                          fontSize: 15,
+                                        ),
                                       ),
                                       Text(
                                         '${bookData['reg']}',
                                         style: TextStyle(
-                                            color: const Color.fromARGB(
-                                                255, 85, 85, 85),
-                                            fontSize: 15),
+                                          color: const Color.fromARGB(
+                                              255, 85, 85, 85),
+                                          fontSize: 15,
+                                        ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 5,
-                                ),
+                                SizedBox(width: 5),
                               ],
                             ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
+                            SizedBox(height: 5),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SizedBox(
-                                  width: 5,
-                                ),
+                                SizedBox(width: 5),
                                 Container(
                                   width: 120,
                                   height: 33.0,
@@ -268,8 +311,19 @@ class _AddToCardState extends State<AddToCard> {
                                       GestureDetector(
                                         onTap: () {
                                           setState(() {
-                                            if (quantity > 0) {
-                                              quantity--;
+                                            if (quantities[documentId]! > 0) {
+                                              quantities[documentId] =
+                                                  quantities[documentId]! - 1;
+
+                                              if (prices[documentId]! >=
+                                                  bookData['price']
+                                                      .toDouble()) {
+                                                totalPrice -= bookData['price']
+                                                    .toDouble();
+                                                totalbookprice -=
+                                                    bookData['price']
+                                                        .toDouble();
+                                              }
                                             }
                                           });
                                         },
@@ -285,20 +339,25 @@ class _AddToCardState extends State<AddToCard> {
                                           child: Center(
                                             child: Icon(
                                               Icons.remove,
-                                              color: const Color.fromARGB(
+                                              color: Color.fromARGB(
                                                   255, 214, 2, 2),
                                             ),
                                           ),
                                         ),
                                       ),
                                       Text(
-                                        '$quantity',
+                                        '${quantities[documentId]}',
                                         style: TextStyle(fontSize: 18.0),
                                       ),
                                       GestureDetector(
                                         onTap: () {
                                           setState(() {
-                                            quantity++;
+                                            quantities[documentId] =
+                                                quantities[documentId]! + 1;
+                                            totalPrice +=
+                                                bookData['price'].toDouble();
+                                            totalbookprice +=
+                                                bookData['price'].toDouble();
                                           });
                                         },
                                         child: Container(
@@ -322,9 +381,7 @@ class _AddToCardState extends State<AddToCard> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 3,
-                                ),
+                                SizedBox(width: 3),
                                 Container(
                                   width: 200,
                                   child: Row(
@@ -351,79 +408,126 @@ class _AddToCardState extends State<AddToCard> {
                                             Text(
                                               'Price',
                                               style: TextStyle(
-                                                  color: const Color.fromARGB(
-                                                      255, 79, 79, 79)),
+                                                color: Color.fromARGB(
+                                                    255, 79, 79, 79),
+                                              ),
                                             ),
-                                            SizedBox(
-                                              width: 3,
-                                            ),
+                                            SizedBox(width: 3),
                                             Icon(
                                               Icons.currency_rupee_outlined,
                                               color: Color.fromARGB(
                                                   255, 55, 114, 16),
                                             ),
-                                            SizedBox(
-                                              width: 1,
-                                            ),
+                                            SizedBox(width: 1),
                                             Text(
-                                              '${bookData['price']}',
-                                              style: TextStyle(
-                                                fontSize: 18,
-                                              ),
-                                            )
+                                              '${prices[documentId]}',
+                                              style: TextStyle(fontSize: 18),
+                                            ),
                                           ],
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 5,
-                                ),
+                                SizedBox(width: 5),
                               ],
                             ),
-                            SizedBox(
-                              height: 5,
-                            ),
+                            SizedBox(height: 5),
                             Row(
                               children: [
                                 Expanded(
-                                  child: Container(
-                                    child: Center(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.delete_outlined,
-                                            color: Color.fromARGB(
-                                                255, 255, 111, 111),
-                                          ),
-                                          Text(
-                                            'Remove',
-                                            style: TextStyle(
-                                                color: const Color.fromARGB(
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      try {
+                                        _user = _auth.currentUser;
+                                        if (_user != null) {
+                                          DocumentSnapshot documentSnapshot =
+                                              await FirebaseFirestore.instance
+                                                  .collection('user_profiles')
+                                                  .doc(_user!.uid)
+                                                  .get();
+
+                                          if (documentSnapshot.exists) {
+                                            Map<String, dynamic>? userData =
+                                                documentSnapshot.data()
+                                                    as Map<String, dynamic>?;
+
+                                            if (userData != null) {
+                                              List<dynamic>? favBooks =
+                                                  userData['fav_book']
+                                                      as List<dynamic>?;
+
+                                              if (favBooks != null) {
+                                                favBooks.remove(documentId);
+
+                                                await FirebaseFirestore.instance
+                                                    .collection('user_profiles')
+                                                    .doc(_user!.uid)
+                                                    .update(
+                                                        {'fav_book': favBooks});
+
+                                                if (prices
+                                                    .containsKey(documentId)) {
+                                                  totalbookprice -=
+                                                      prices[documentId] ?? 0;
+                                                  prices.remove(documentId);
+                                                }
+                                                print(
+                                                    'Item deleted successfully');
+                                              } else {
+                                                print('fav_book list is null');
+                                              }
+                                            } else {
+                                              print('userData is null');
+                                            }
+                                          } else {
+                                            print('Document does not exist');
+                                          }
+                                        } else {
+                                          print('User not authenticated');
+                                        }
+                                      } catch (e) {
+                                        print('Error deleting item: $e');
+                                      }
+                                    },
+                                    child: Container(
+                                      child: Center(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.delete_outlined,
+                                              color: Color.fromARGB(
+                                                  255, 255, 111, 111),
+                                            ),
+                                            Text(
+                                              'Remove',
+                                              style: TextStyle(
+                                                color: Color.fromARGB(
                                                     255, 105, 105, 105),
-                                                fontSize: 15),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        top: BorderSide(
-                                          color: const Color.fromARGB(
-                                              255, 141, 141, 141),
-                                          width: 1.0,
-                                        ),
-                                        right: BorderSide(
-                                          color: const Color.fromARGB(
-                                              255, 141, 141, 141),
-                                          width: 1.0,
+                                                fontSize: 15,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          top: BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 141, 141, 141),
+                                            width: 1.0,
+                                          ),
+                                          right: BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 141, 141, 141),
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                      ),
+                                      height: 40,
                                     ),
-                                    height: 40,
                                   ),
                                 ),
                                 Expanded(
@@ -435,16 +539,17 @@ class _AddToCardState extends State<AddToCard> {
                                         children: [
                                           Icon(
                                             Icons.save_outlined,
-                                            color: const Color.fromARGB(
+                                            color: Color.fromARGB(
                                                 255, 105, 105, 105),
                                           ),
                                           Text(
                                             'Save for Later',
                                             style: TextStyle(
-                                                color: const Color.fromARGB(
-                                                    255, 105, 105, 105),
-                                                fontSize: 14),
-                                          )
+                                              color: Color.fromARGB(
+                                                  255, 105, 105, 105),
+                                              fontSize: 14,
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -452,12 +557,12 @@ class _AddToCardState extends State<AddToCard> {
                                     decoration: BoxDecoration(
                                       border: Border(
                                         top: BorderSide(
-                                          color: const Color.fromARGB(
+                                          color: Color.fromARGB(
                                               255, 141, 141, 141),
                                           width: 1.0,
                                         ),
                                         right: BorderSide(
-                                          color: const Color.fromARGB(
+                                          color: Color.fromARGB(
                                               255, 141, 141, 141),
                                           width: 1.0,
                                         ),
@@ -473,17 +578,18 @@ class _AddToCardState extends State<AddToCard> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Icon(
+                                            Icons.bolt_outlined,
                                             color: Color.fromARGB(
                                                 255, 159, 255, 75),
-                                            Icons.bolt_outlined,
                                           ),
                                           Text(
                                             'Buy this Now',
                                             style: TextStyle(
-                                                color: const Color.fromARGB(
-                                                    255, 105, 105, 105),
-                                                fontSize: 15),
-                                          )
+                                              color: Color.fromARGB(
+                                                  255, 105, 105, 105),
+                                              fontSize: 15,
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -491,7 +597,7 @@ class _AddToCardState extends State<AddToCard> {
                                     decoration: BoxDecoration(
                                       border: Border(
                                         top: BorderSide(
-                                          color: const Color.fromARGB(
+                                          color: Color.fromARGB(
                                               255, 141, 141, 141),
                                           width: 1.0,
                                         ),
@@ -500,7 +606,7 @@ class _AddToCardState extends State<AddToCard> {
                                   ),
                                 ),
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ),
