@@ -62,15 +62,29 @@ class _BookviewState extends State<Bookview> {
             .update({
           'fav_book': FieldValue.arrayUnion(['${widget.bookid}'])
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Added to cart'),
-            duration: Duration(seconds: 3),
-            action: SnackBarAction(
-              label: 'Close',
-              onPressed: () {},
-            ),
-          ),
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(
+                'Added to the card',
+                style: TextStyle(fontSize: 24, color: Colors.black),
+              ),
+              content: Text(
+                '${bookData['bookname']} Book added to the Card',
+                style: TextStyle(
+                    fontSize: 20, color: const Color.fromARGB(255, 84, 84, 84)),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
         );
       }
     } catch (e) {

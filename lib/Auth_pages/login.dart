@@ -15,6 +15,14 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool isOpen = false;
+
+  void toggleIsOpen() {
+    setState(() {
+      isOpen = !isOpen;
+    });
+  }
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -161,15 +169,16 @@ class _LoginState extends State<Login> {
               child: Row(
                 children: [
                   SizedBox(
-                    width: 10.0,
+                    width: 5.0,
                   ),
                   Icon(
                     Icons.lock_outline,
                     size: 25.0,
                   ),
-                  SizedBox(width: 10.0),
+                  SizedBox(width: 5.0),
                   Expanded(
                     child: TextField(
+                      obscureText: !isOpen,
                       controller: _passwordController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -177,6 +186,22 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
+                  SizedBox(width: 5.0),
+                  IconButton(
+                    onPressed: () {
+                      toggleIsOpen();
+                    },
+                    icon: isOpen
+                        ? Icon(
+                            Icons.remove_red_eye_outlined,
+                            size: 20.0,
+                          )
+                        : Icon(
+                            size: 20.0,
+                            Icons.visibility_off_outlined,
+                          ),
+                  ),
+                  SizedBox(width: 5.0),
                 ],
               ),
             ),
@@ -193,7 +218,7 @@ class _LoginState extends State<Login> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => resetpassword()),

@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:studentscopy/pages/Home.dart';
+import 'package:flutter/material.dart';
 import 'package:studentscopy/Auth_pages/login.dart';
 import 'package:studentscopy/firebase_options.dart';
+import 'package:studentscopy/pages/Home.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,8 +32,8 @@ class _MyAppState extends State<MyApp> {
   Future<void> checkUser() async {
     _auth.authStateChanges().listen((User? user) {
       setState(() {
-        _user = user;
         _loading = false;
+        _user = user;
       });
     });
   }
@@ -45,7 +45,14 @@ class _MyAppState extends State<MyApp> {
       home: _loading
           ? Scaffold(
               body: Center(
-                child: CircularProgressIndicator(),
+                child: Container(
+                  width: 300,
+                  height: 300,
+                  child: Image(
+                    image: AssetImage('assets/logo.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             )
           : _user != null

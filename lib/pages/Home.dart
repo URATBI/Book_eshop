@@ -169,6 +169,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             ListTile(
+              leading: Icon(Icons.person_2_outlined),
               title: Text("My Profile"),
               onTap: () {
                 Navigator.push(
@@ -178,6 +179,7 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.favorite_border),
               title: Text('Fav Books'),
               onTap: () {
                 Navigator.push(
@@ -187,14 +189,17 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.book_outlined),
               title: Text(userData != null ? userData['rollNumber'] ?? '' : ''),
               onTap: () {},
             ),
             ListTile(
+              leading: Icon(Icons.home_work_outlined),
               title: Text(userData != null ? userData['department'] ?? '' : ''),
               onTap: () {},
             ),
             ListTile(
+              leading: Icon(Icons.logout_outlined),
               title: Text("Logout"),
               onTap: () {
                 _logout(context);
